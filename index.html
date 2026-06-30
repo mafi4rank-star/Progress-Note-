@@ -225,6 +225,7 @@
       min-height: 480px;
       white-space: pre-wrap;
       line-height: 1.48;
+      font-family: inherit;
     }
     .privacy {
       margin: 12px 0 0;
@@ -309,9 +310,9 @@
             <div><label for="workerName">Staff name</label><input id="workerName" placeholder="Your name"></div>
             <div><label for="pronoun">Participant pronoun</label><select id="pronoun"><option value="he">He / him</option><option value="she">She / her</option><option value="they">They / them</option></select></div>
             <div><label for="shiftDate">Date</label><input id="shiftDate" type="date"></div>
-            <div><label for="shiftTime">Time (start)</label><select id="shiftTime"><option value="">Select time</option><option value="7:00am">7:00am</option><option value="8:00am">8:00am</option><option value="9:00am">9:00am</option><option value="10:00am">10:00am</option><option value="11:00am">11:00am</option><option value="12:00pm">12:00pm</option><option value="1:00pm">1:00pm</option><option value="2:00pm">2:00pm</option><option value="3:00pm">3:00pm</option><option value="4:00pm">4:00pm</option></select></div>
-            <div><label for="location">Location</label><select id="location"><option value="">Select location</option><option value="Kings Park Centre">Kings Park Centre</option><option value="Prospect Centre">Prospect Centre</option><option value="Huntingwood Centre">Huntingwood Centre</option><option value="Sargent Centre">Sargent Centre</option><option value="N/A">N/A</option></select></div>
-            <div><label for="arrivalMood">Mood on arrival</label><select id="arrivalMood"><option>Settled</option><option>Happy and calm</option><option>Happy</option><option>Calm</option><option>Content</option><option>Tired</option><option>Anxious</option><option>Upset</option></select></div>
+            <div><label for="shiftTime">Time (start)</label><select id="shiftTime"><option value="N/A">N/A</option><option value="7:00am">7:00am</option><option value="8:00am">8:00am</option><option value="9:00am">9:00am</option><option value="10:00am">10:00am</option><option value="11:00am">11:00am</option><option value="12:00pm">12:00pm</option><option value="1:00pm">1:00pm</option><option value="2:00pm">2:00pm</option><option value="3:00pm">3:00pm</option><option value="4:00pm">4:00pm</option></select></div>
+            <div><label for="location">Location</label><select id="location"><option value="N/A">N/A</option><option value="Kings Park Centre">Kings Park Centre</option><option value="Prospect Centre">Prospect Centre</option><option value="Huntingwood Centre">Huntingwood Centre</option><option value="Sargent Centre">Sargent Centre</option></select></div>
+            <div><label for="arrivalMood">Mood on arrival</label><select id="arrivalMood"><option value="N/A">N/A</option><option>Settled</option><option>Happy and calm</option><option>Happy</option><option>Calm</option><option>Content</option><option>Tired</option><option>Anxious</option><option>Upset</option></select></div>
           </div>
         </section>
 
@@ -325,29 +326,29 @@
           </h2>
           <div class="field-list">
             <div class="grid">
-              <div><label for="morningTea">Morning tea?</label><select id="morningTea"><option>No</option><option>Yes</option><option>Unsure</option></select></div>
+              <div><label for="morningTea">Morning tea?</label><select id="morningTea"><option value="N/A">N/A</option><option>No</option><option>Yes</option><option>Unsure</option></select></div>
               <div><label for="morningTeaDetails">Morning tea details</label><input id="morningTeaDetails" placeholder="e.g. fruit, biscuits, drink"></div>
-              <div><label for="peers">Interacted with peers?</label><select id="peers"><option>Yes</option><option>No</option><option>Unsure</option></select></div>
-              <div><label for="staff">Interacted with staff?</label><select id="staff"><option>Yes</option><option>No</option><option>Unsure</option></select></div>
+              <div><label for="peers">Interacted with peers?</label><select id="peers"><option value="N/A">N/A</option><option>Yes</option><option>No</option><option>Unsure</option></select></div>
+              <div><label for="staff">Interacted with staff?</label><select id="staff"><option value="N/A">N/A</option><option>Yes</option><option>No</option><option>Unsure</option></select></div>
               <div><label for="program">Program / activity</label><input id="program" placeholder="e.g. fishing, cooking, shopping"></div>
               <div><label for="programLocation">Program location</label><input id="programLocation" placeholder="e.g. Bobbin Head"></div>
-              <div><label for="participated">Participated?</label><select id="participated"><option>Yes</option><option>No</option><option>Unsure</option></select></div>
-              <div><label for="enjoyed">Enjoyed activity?</label><select id="enjoyed"><option>Yes</option><option>No</option><option>Unsure</option></select></div>
-              <div><label for="medication">Medication support?</label><select id="medication"><option>No</option><option>Yes</option><option>Unsure</option></select></div>
+              <div><label for="participated">Participated?</label><select id="participated"><option value="N/A">N/A</option><option>Yes</option><option>No</option><option>Unsure</option></select></div>
+              <div><label for="enjoyed">Enjoyed activity?</label><select id="enjoyed"><option value="N/A">N/A</option><option>Yes</option><option>No</option><option>Unsure</option></select></div>
+              <div><label for="medication">Medication support?</label><select id="medication"><option value="N/A">N/A</option><option>No</option><option>Yes</option><option>Unsure</option></select></div>
               <div><label for="medTime">Medication time</label><input id="medTime" placeholder="e.g. 11:30am"></div>
               <div><label for="lunch">Lunch details</label><input id="lunch" placeholder="e.g. sandwich and fruit"></div>
-              <div><label for="eaten">Percentage eaten</label><select id="eaten"><option></option><option>100%</option><option>75%</option><option>50%</option><option>25%</option><option>Refused</option></select></div>
+              <div><label for="eaten">Percentage eaten</label><select id="eaten"><option value="N/A">N/A</option><option>100%</option><option>75%</option><option>50%</option><option>25%</option><option>Refused</option></select></div>
               <div><label for="fluids">Fluid intake</label><input id="fluids" placeholder="e.g. water throughout the day"></div>
-              <div><label for="returnCentre">Returned to centre?</label><select id="returnCentre"><option>Yes</option><option>No</option><option>Unsure</option></select></div>
-              <div><label for="toilet">Toileted independently?</label><select id="toilet"><option>Yes</option><option>No</option><option>Unsure</option></select></div>
-              <div><label for="assist">Staff assistance required?</label><select id="assist"><option>No</option><option>Yes</option><option>Unsure</option></select></div>
-              <div><label for="incontinent">Incontinence?</label><select id="incontinent"><option>No</option><option>Yes</option><option>Unsure</option></select></div>
-              <div><label for="pad">Pad change completed?</label><select id="pad"><option>No</option><option>Yes</option><option>Unsure</option></select></div>
-              <div><label for="behaviour">Behaviours of concern?</label><select id="behaviour"><option>No</option><option>Yes</option><option>Unsure</option></select></div>
+              <div><label for="returnCentre">Returned to centre?</label><select id="returnCentre"><option value="N/A">N/A</option><option>Yes</option><option>No</option><option>Unsure</option></select></div>
+              <div><label for="toilet">Toileted independently?</label><select id="toilet"><option value="N/A">N/A</option><option>Yes</option><option>No</option><option>Unsure</option></select></div>
+              <div><label for="assist">Staff assistance required?</label><select id="assist"><option value="N/A">N/A</option><option>No</option><option>Yes</option><option>Unsure</option></select></div>
+              <div><label for="incontinent">Incontinence?</label><select id="incontinent"><option value="N/A">N/A</option><option>No</option><option>Yes</option><option>Unsure</option></select></div>
+              <div><label for="pad">Pad change completed?</label><select id="pad"><option value="N/A">N/A</option><option>No</option><option>Yes</option><option>Unsure</option></select></div>
+              <div><label for="behaviour">Behaviours of concern?</label><select id="behaviour"><option value="N/A">N/A</option><option>No</option><option>Yes</option><option>Unsure</option></select></div>
               <div id="behaviourDetailContainer" style="display:none; grid-column:1/-1"><label for="behaviourDetail">Describe the behaviour</label><textarea id="behaviourDetail" placeholder="Explain the behaviour..."></textarea></div>
-              <div><label for="incident">Incident or injury?</label><select id="incident"><option>No</option><option>Yes</option><option>Unsure</option></select></div>
+              <div><label for="incident">Incident or injury?</label><select id="incident"><option value="N/A">N/A</option><option>No</option><option>Yes</option><option>Unsure</option></select></div>
               <div id="incidentDetailContainer" style="display:none; grid-column:1/-1"><label for="incidentDetail">Describe the incident or injury</label><textarea id="incidentDetail" placeholder="Explain the incident..."></textarea></div>
-              <div><label for="departed">Departed safely?</label><select id="departed"><option>Yes</option><option>No</option><option>Unsure</option></select></div>
+              <div><label for="departed">Departed safely?</label><select id="departed"><option value="N/A">N/A</option><option>Yes</option><option>No</option><option>Unsure</option></select></div>
             </div>
           </div>
         </section>
@@ -422,6 +423,10 @@
       return clean(value).toLowerCase();
     }
 
+    function isNA(id) {
+      return $(id).value === "N/A";
+    }
+
     function yes(id) {
       return $(id).value === "Yes";
     }
@@ -439,11 +444,11 @@
 
     function generateNote() {
       const participant = clean($("participantName").value) || "Participant";
-      const locationValue = clean($("location").value);
-      const showLocation = locationValue && locationValue !== "N/A";
-      const location = showLocation ? locationValue : "the centre";
-      const mood = lower($("arrivalMood").value) || "settled";
+      const mood = !isNA("arrivalMood") ? lower($("arrivalMood").value) : "settled";
       const p = pronouns();
+      
+      const locationValue = clean($("location").value);
+      const location = !isNA("location") ? locationValue : "the centre";
 
       const program = clean($("program").value);
       const programLocation = clean($("programLocation").value);
@@ -460,31 +465,46 @@
       const customText = sentence($("customText").value);
 
       const sections = [];
-      sections.push(`${participant} arrived at ${location} and appeared ${mood}.`);
 
-      if (yes("morningTea")) {
-        sections.push(`${p.subject} had morning tea${morningTeaDetails ? " consisting of " + morningTeaDetails : ""}.`);
-      } else if (no("morningTea")) {
-        sections.push(`${p.subject} did not have morning tea.`);
+      // Opening
+      const openingParts = [`${participant} arrived at ${location} and appeared ${mood}`];
+      sections.push(openingParts.join("") + ".");
+
+      // Morning tea
+      if (!isNA("morningTea")) {
+        if (yes("morningTea")) {
+          sections.push(`${p.subject} had morning tea${morningTeaDetails ? " consisting of " + morningTeaDetails : ""}.`);
+        } else if (no("morningTea")) {
+          sections.push(`${p.subject} did not have morning tea.`);
+        }
       }
 
+      // Initial relaxation if no program
+      if (!program && !achievement) {
+        sections.push(`${p.subject} spent time relaxing in the main area.`);
+      }
+
+      // Initial achievement
       if (achievement) {
         const achieveLower = achievement.charAt(0).toLowerCase() + achievement.slice(1);
         sections.push(`${p.subject} spent time ${achieveLower}`);
       }
 
+      // Program section
       if (program) {
-        if (yes("returnCentre")) {
-          sections.push(`The group then departed for the day's program.`);
+        if (!isNA("returnCentre") && yes("returnCentre")) {
+          sections.push(`${p.subject} spent time relaxing in the main area before the group departed for the day's program.`);
         }
         sections.push(`The group participated in ${program}${programLocation ? " and travelled to " + programLocation : ""}.`);
       }
 
-      if (yes("incident") && incidentDetail) {
-        sections.push(`During the outing, ${incidentDetail}`);
+      // Incident or injury during outing
+      if (!isNA("incident") && yes("incident") && incidentDetail) {
+        sections.push(`${incidentDetail}`);
       }
 
-      if (program) {
+      // Mood/behavior during activities
+      if (program && !isNA("enjoyed")) {
         if (yes("enjoyed")) {
           sections.push(`Throughout the outing, ${p.subject} remained calm and content.`);
         } else if (no("enjoyed")) {
@@ -492,39 +512,62 @@
         }
       }
 
-      if (yes("medication")) {
-        sections.push(`${p.subject} was supported to take prescribed medication${medTime ? " at approximately " + medTime : ""}.`);
+      // Medication
+      if (!isNA("medication") && yes("medication")) {
+        if (medTime) {
+          sections.push(`${p.subject} was supported to take ${p.possessive} prescribed medication at approximately ${medTime}.`);
+        } else {
+          sections.push(`${p.subject} was supported to take ${p.possessive} prescribed medication.`);
+        }
       }
 
+      // Lunch
       if (lunch) {
-        const eatenText = eaten ? ` and consumed ${eaten} of the meal` : "";
-        sections.push(`At ${medTime || "the appropriate time"}, ${p.subject} enjoyed lunch, which consisted of ${lunch}${eatenText}.`);
+        let lunchSentence = "";
+        if (medTime) {
+          lunchSentence = `At ${medTime}, ${p.subject} enjoyed ${p.possessive} lunch, which consisted of ${lunch}`;
+        } else {
+          lunchSentence = `${p.subject} enjoyed ${p.possessive} lunch, which consisted of ${lunch}`;
+        }
+        if (eaten && eaten !== "N/A") {
+          lunchSentence += ` and consumed ${eaten} of the meal`;
+        }
+        lunchSentence += ".";
+        sections.push(lunchSentence);
       }
 
+      // Fluids
       if (fluids) {
         sections.push(`${p.subject} maintained ${fluids}.`);
       }
 
-      if (yes("behaviour") && behaviourDetail) {
+      // Behaviour during return journey
+      if (!isNA("behaviour") && yes("behaviour") && behaviourDetail) {
         sections.push(`During the return journey to the centre, ${behaviourDetail}`);
       }
 
-      if (yes("toilet")) {
-        sections.push(`${p.subject} toileted independently.`);
-      } else if (no("toilet")) {
-        sections.push(`Upon returning to the centre, staff assisted ${p.subject} with toileting routine.`);
+      // Toileting and personal care
+      if (!isNA("toilet")) {
+        if (yes("toilet")) {
+          sections.push(`${p.subject} toileted independently.`);
+        } else if (no("toilet")) {
+          sections.push(`Upon returning to the centre, staff assisted ${p.subject} with ${p.possessive} toileting routine.`);
+        }
       }
 
-      if (yes("pad")) {
+      // Pad change
+      if (!isNA("pad") && yes("pad")) {
         sections.push(`Staff changed ${p.possessive} continence pad.`);
       }
 
+      // Relaxation after
       if (comments) {
-        sections.push(`${p.subject} then spent time relaxing. ${comments}`);
-      } else {
+        sections.push(`${p.subject} then spent time relaxing in the main area. ${comments}`);
+      } else if (!program || !yes("returnCentre")) {
         sections.push(`${p.subject} then spent time relaxing in the main area until it was time to return home.`);
       }
 
+      // Closing summary
       sections.push(`Overall, ${p.subject} appeared ${mood} and had a positive day with appropriate support provided throughout.`);
 
       if (handover) {
@@ -547,6 +590,8 @@
             else el.value = "";
           });
           $("noteText").value = "";
+          $("behaviour").dispatchEvent(new Event("change"));
+          $("incident").dispatchEvent(new Event("change"));
         }
       });
 
@@ -563,11 +608,11 @@
       });
 
       $("behaviour").addEventListener("change", () => {
-        $("behaviourDetailContainer").style.display = yes("behaviour") ? "block" : "none";
+        $("behaviourDetailContainer").style.display = (yes("behaviour")) ? "block" : "none";
       });
 
       $("incident").addEventListener("change", () => {
-        $("incidentDetailContainer").style.display = yes("incident") ? "block" : "none";
+        $("incidentDetailContainer").style.display = (yes("incident")) ? "block" : "none";
       });
     }
 
