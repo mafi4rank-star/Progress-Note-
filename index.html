@@ -215,8 +215,8 @@
 
     .segmented {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      width: 132px;
+      grid-template-columns: 1fr 1fr 1fr;
+      width: auto;
       border: 1px solid #b6c7c9;
       border-radius: 8px;
       overflow: hidden;
@@ -230,6 +230,8 @@
       color: var(--muted);
       font-weight: 800;
       cursor: pointer;
+      padding: 0 8px;
+      font-size: 0.9rem;
     }
 
     .segmented button + button {
@@ -244,6 +246,11 @@
     .segmented button.active.no {
       background: #fff0e4;
       color: var(--warn);
+    }
+
+    .segmented button.active.unsure {
+      background: #f5f1e8;
+      color: #8b7355;
     }
 
     .detail {
@@ -528,11 +535,27 @@
             </div>
             <div>
               <label for="shiftTime">Time</label>
-              <input id="shiftTime" placeholder="e.g. 9:00am to 1:00pm">
+              <select id="shiftTime">
+                <option value="">Select time</option>
+                <option value="9:00am to 1:00pm">9:00am to 1:00pm</option>
+                <option value="1:00pm to 5:00pm">1:00pm to 5:00pm</option>
+                <option value="5:00pm to 9:00pm">5:00pm to 9:00pm</option>
+                <option value="9:00pm to 1:00am">9:00pm to 1:00am</option>
+                <option value="7:00am to 3:00pm">7:00am to 3:00pm</option>
+                <option value="8:00am to 4:00pm">8:00am to 4:00pm</option>
+                <option value="10:00am to 6:00pm">10:00am to 6:00pm</option>
+              </select>
             </div>
             <div>
               <label for="location">Location</label>
-              <input id="location" placeholder="e.g. centre, home, community">
+              <select id="location">
+                <option value="">Select location</option>
+                <option value="Kings Park Centre">Kings Park Centre</option>
+                <option value="Prospect Centre">Prospect Centre</option>
+                <option value="Huntingwood Centre">Huntingwood Centre</option>
+                <option value="Sargent Centre">Sargent Centre</option>
+                <option value="N/A">N/A</option>
+              </select>
             </div>
             <div>
               <label for="arrivalMood">Mood on arrival</label>
@@ -564,6 +587,7 @@
                 <select id="morningTea">
                   <option>No</option>
                   <option>Yes</option>
+                  <option>Unsure</option>
                 </select>
               </div>
               <div>
@@ -575,6 +599,7 @@
                 <select id="peers">
                   <option>Yes</option>
                   <option>No</option>
+                  <option>Unsure</option>
                 </select>
               </div>
               <div>
@@ -582,6 +607,7 @@
                 <select id="staff">
                   <option>Yes</option>
                   <option>No</option>
+                  <option>Unsure</option>
                 </select>
               </div>
               <div>
@@ -597,6 +623,7 @@
                 <select id="participated">
                   <option>Yes</option>
                   <option>No</option>
+                  <option>Unsure</option>
                 </select>
               </div>
               <div>
@@ -604,6 +631,7 @@
                 <select id="enjoyed">
                   <option>Yes</option>
                   <option>No</option>
+                  <option>Unsure</option>
                 </select>
               </div>
               <div>
@@ -611,6 +639,7 @@
                 <select id="medication">
                   <option>No</option>
                   <option>Yes</option>
+                  <option>Unsure</option>
                 </select>
               </div>
               <div>
@@ -637,10 +666,19 @@
                 <input id="fluids" placeholder="e.g. water throughout the day">
               </div>
               <div>
+                <label for="returnCentre">Returned to centre?</label>
+                <select id="returnCentre">
+                  <option>Yes</option>
+                  <option>No</option>
+                  <option>Unsure</option>
+                </select>
+              </div>
+              <div>
                 <label for="toilet">Toileted independently?</label>
                 <select id="toilet">
                   <option>Yes</option>
                   <option>No</option>
+                  <option>Unsure</option>
                 </select>
               </div>
               <div>
@@ -648,6 +686,7 @@
                 <select id="assist">
                   <option>No</option>
                   <option>Yes</option>
+                  <option>Unsure</option>
                 </select>
               </div>
               <div>
@@ -655,6 +694,7 @@
                 <select id="incontinent">
                   <option>No</option>
                   <option>Yes</option>
+                  <option>Unsure</option>
                 </select>
               </div>
               <div>
@@ -662,6 +702,7 @@
                 <select id="pad">
                   <option>No</option>
                   <option>Yes</option>
+                  <option>Unsure</option>
                 </select>
               </div>
               <div>
@@ -669,27 +710,31 @@
                 <select id="behaviour">
                   <option>No</option>
                   <option>Yes</option>
+                  <option>Unsure</option>
                 </select>
+              </div>
+              <div id="behaviourDetailContainer" style="display: none; grid-column: 1 / -1;">
+                <label for="behaviourDetail">Describe the behaviour</label>
+                <textarea id="behaviourDetail" placeholder="Explain the behaviour of concern..."></textarea>
               </div>
               <div>
                 <label for="incident">Incident or injury?</label>
                 <select id="incident">
                   <option>No</option>
                   <option>Yes</option>
+                  <option>Unsure</option>
                 </select>
               </div>
-              <div>
-                <label for="returnCentre">Returned to centre?</label>
-                <select id="returnCentre">
-                  <option>Yes</option>
-                  <option>No</option>
-                </select>
+              <div id="incidentDetailContainer" style="display: none; grid-column: 1 / -1;">
+                <label for="incidentDetail">Describe the incident or injury</label>
+                <textarea id="incidentDetail" placeholder="Explain the incident or injury..."></textarea>
               </div>
               <div>
                 <label for="departed">Departed safely?</label>
                 <select id="departed">
                   <option>Yes</option>
                   <option>No</option>
+                  <option>Unsure</option>
                 </select>
               </div>
             </div>
@@ -836,7 +881,7 @@
     }
 
     function answered(id) {
-      return $(id).value === "Yes" || $(id).value === "No";
+      return $(id).value === "Yes" || $(id).value === "No" || $(id).value === "Unsure";
     }
 
     function prepareQuestionSelects() {
@@ -899,7 +944,9 @@
         `Incontinence: ${answerText("incontinent")}`,
         `Pad change completed: ${answerText("pad")}`,
         `Behaviours of concern: ${answerText("behaviour")}`,
+        `Behaviour details: ${clean($("behaviourDetail").value) || "Not entered"}`,
         `Incident or injury: ${answerText("incident")}`,
+        `Incident details: ${clean($("incidentDetail").value) || "Not entered"}`,
         `Returned to centre: ${answerText("returnCentre")}`,
         `Departed safely: ${answerText("departed")}`,
         `Achievements/highlights: ${clean($("achievement").value) || "Not entered"}`,
@@ -924,7 +971,9 @@
       const worker = clean($("workerName").value) || "Support worker";
       const date = formatDate($("shiftDate").value) || "Date not entered";
       const time = clean($("shiftTime").value) || "Time not entered";
-      const location = clean($("location").value) || "the centre";
+      const locationValue = clean($("location").value);
+      const location = locationValue && locationValue !== "N/A" ? locationValue : "the centre";
+      const showLocation = locationValue && locationValue !== "N/A";
       const mood = lower($("arrivalMood").value) || "settled";
       const program = clean($("program").value);
       const programLocation = clean($("programLocation").value);
@@ -937,6 +986,8 @@
       const eaten = clean($("eaten").value);
       const fluids = clean($("fluids").value);
       const medTime = clean($("medTime").value);
+      const behaviourDetail = sentence($("behaviourDetail").value);
+      const incidentDetail = sentence($("incidentDetail").value);
       const p = pronouns();
       const morningTeaLine = yes("morningTea")
         ? `${p.subject} had morning tea${morningTeaDetails ? " consisting of " + morningTeaDetails : ""}.`
@@ -977,10 +1028,10 @@
       ];
       const wellbeingLines = [
         !answered("behaviour") ? "" : yes("behaviour")
-          ? "Behaviours of concern were observed and staff provided support, reassurance, and redirection where required."
+          ? `Behaviours of concern were observed${behaviourDetail ? " - " + behaviourDetail.slice(0, -1) : ""} and staff provided support, reassurance, and redirection where required.`
           : "No behaviours of concern were observed.",
         !answered("incident") ? "" : yes("incident")
-          ? "An incident or injury was recorded and managed according to organisational procedures."
+          ? `An incident or injury was recorded${incidentDetail ? " - " + incidentDetail.slice(0, -1) : ""} and managed according to organisational procedures.`
           : "No incident or injury was observed or reported."
       ];
       const departureLine = (() => {
@@ -990,7 +1041,9 @@
         return "";
       })();
       const paragraph = joinSentences([
-        `${participant} arrived at ${location}${time !== "Time not entered" ? " at " + time : ""}, ${p.subject} appeared ${mood} this morning.`,
+        showLocation
+          ? `${participant} arrived at ${location}${time !== "Time not entered" ? " at " + time : ""}, ${p.subject} appeared ${mood} this morning.`
+          : `${participant} arrived${time !== "Time not entered" ? " at " + time : ""}, ${p.subject} appeared ${mood} this morning.`,
         morningTeaLine,
         peerStaffLine,
         programLine,
@@ -999,90 +1052,82 @@
         medicationLine,
         lunchLine,
         fluidsLine,
-        ...personalCareLines,
-        ...wellbeingLines,
-        comments,
-        customText,
+        personalCareLines.filter(Boolean).join(" "),
+        wellbeingLines.filter(Boolean).join(" "),
         departureLine,
-        handover ? `Handover: ${handover}` : ""
+        comments,
+        handover,
+        customText
       ]);
+      $("noteText").value = paragraph;
+      $("aiPrompt").value = buildAiPrompt(paragraph);
+      updateCount();
+    }
 
-      const draftNote = [
-        `Progress Note - ${date}`,
-        `Participant: ${participant}`,
-        `Staff: ${worker}`,
-        "",
-        paragraph
-      ].join("\n");
+    function setupEventListeners() {
+      $("generateBtn").addEventListener("click", generateNote);
+      $("clearBtn").addEventListener("click", () => {
+        if (confirm("Clear all entries?")) {
+          document.querySelectorAll("input, select, textarea").forEach(el => {
+            if (el.type === "date") {
+              el.value = todayForInput();
+            } else {
+              el.value = "";
+            }
+          });
+          $("noteText").value = "";
+          $("aiPrompt").value = "";
+          updateCount();
+        }
+      });
 
-      $("noteText").value = draftNote;
-      $("aiPrompt").value = buildAiPrompt(draftNote);
+      $("copyBtn").addEventListener("click", () => {
+        $("noteText").select();
+        document.execCommand("copy");
+        showToast("Copied");
+      });
+
+      $("printBtn").addEventListener("click", () => {
+        window.print();
+      });
+
+      $("copyPromptBtn").addEventListener("click", () => {
+        $("aiPrompt").select();
+        document.execCommand("copy");
+        showToast("AI prompt copied");
+      });
+
+      // Update detail container visibility
+      $("behaviour").addEventListener("change", () => {
+        const container = $("behaviourDetailContainer");
+        container.style.display = yes("behaviour") ? "block" : "none";
+      });
+
+      $("incident").addEventListener("change", () => {
+        const container = $("incidentDetailContainer");
+        container.style.display = yes("incident") ? "block" : "none";
+      });
+
+      // Update on input
+      document.querySelectorAll("input, select, textarea").forEach(el => {
+        el.addEventListener("change", updateCount);
+      });
     }
 
     function showToast(message) {
       const toast = $("toast");
       toast.textContent = message;
       toast.classList.add("show");
-      window.setTimeout(() => toast.classList.remove("show"), 1800);
+      setTimeout(() => toast.classList.remove("show"), 2000);
     }
 
-    async function copyNote() {
-      generateNote();
-      const text = $("noteText").value;
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch (error) {
-        $("noteText").focus();
-        $("noteText").select();
-        document.execCommand("copy");
-      }
-      showToast("Note copied");
-    }
-
-    async function copyAiPrompt() {
-      generateNote();
-      const text = $("aiPrompt").value;
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch (error) {
-        $("aiPrompt").focus();
-        $("aiPrompt").select();
-        document.execCommand("copy");
-      }
-      showToast("AI prompt copied");
-    }
-
-    function clearForm() {
-      if (!confirm("Clear all answers and note text?")) return;
-      $("noteForm").reset();
-      questionIds.forEach((id) => $(id).value = "");
+    // Initialize
+    document.addEventListener("DOMContentLoaded", () => {
       $("shiftDate").value = todayForInput();
+      prepareQuestionSelects();
+      setupEventListeners();
       updateCount();
-      generateNote();
-    }
-
-    prepareQuestionSelects();
-    $("shiftDate").value = todayForInput();
-    $("generateBtn").addEventListener("click", () => {
-      generateNote();
-      showToast("Note generated");
     });
-    $("copyBtn").addEventListener("click", copyNote);
-    $("copyPromptBtn").addEventListener("click", copyAiPrompt);
-    $("printBtn").addEventListener("click", () => {
-      generateNote();
-      window.print();
-    });
-    $("clearBtn").addEventListener("click", clearForm);
-    document.querySelectorAll("input, textarea, select").forEach((field) => {
-      field.addEventListener("input", generateNote);
-      field.addEventListener("change", () => {
-        updateCount();
-        generateNote();
-      });
-    });
-    updateCount();
-    generateNote();
   </script>
 </body>
 </html>
