@@ -534,16 +534,25 @@
               <input id="shiftDate" type="date">
             </div>
             <div>
-              <label for="shiftTime">Time</label>
+              <label for="shiftTime">Time (start)</label>
               <select id="shiftTime">
                 <option value="">Select time</option>
-                <option value="9:00am to 1:00pm">9:00am to 1:00pm</option>
-                <option value="1:00pm to 5:00pm">1:00pm to 5:00pm</option>
-                <option value="5:00pm to 9:00pm">5:00pm to 9:00pm</option>
-                <option value="9:00pm to 1:00am">9:00pm to 1:00am</option>
-                <option value="7:00am to 3:00pm">7:00am to 3:00pm</option>
-                <option value="8:00am to 4:00pm">8:00am to 4:00pm</option>
-                <option value="10:00am to 6:00pm">10:00am to 6:00pm</option>
+                <option value="6:00am">6:00am</option>
+                <option value="7:00am">7:00am</option>
+                <option value="8:00am">8:00am</option>
+                <option value="9:00am">9:00am</option>
+                <option value="10:00am">10:00am</option>
+                <option value="11:00am">11:00am</option>
+                <option value="12:00pm">12:00pm</option>
+                <option value="1:00pm">1:00pm</option>
+                <option value="2:00pm">2:00pm</option>
+                <option value="3:00pm">3:00pm</option>
+                <option value="4:00pm">4:00pm</option>
+                <option value="5:00pm">5:00pm</option>
+                <option value="6:00pm">6:00pm</option>
+                <option value="7:00pm">7:00pm</option>
+                <option value="8:00pm">8:00pm</option>
+                <option value="9:00pm">9:00pm</option>
               </select>
             </div>
             <div>
@@ -564,6 +573,7 @@
                 <option>Happy</option>
                 <option>Calm</option>
                 <option>Content</option>
+                <option>Settled</option>
                 <option>Tired</option>
                 <option>Anxious</option>
                 <option>Upset</option>
@@ -644,7 +654,7 @@
               </div>
               <div>
                 <label for="medTime">Medication time</label>
-                <input id="medTime" placeholder="e.g. 12:00pm">
+                <input id="medTime" placeholder="e.g. 11:30am">
               </div>
               <div>
                 <label for="lunch">Lunch details</label>
@@ -880,18 +890,12 @@
       return $(id).value === "No";
     }
 
-    function answered(id) {
-      return $(id).value === "Yes" || $(id).value === "No" || $(id).value === "Unsure";
+    function unsure(id) {
+      return $(id).value === "Unsure";
     }
 
-    function prepareQuestionSelects() {
-      questionIds.forEach((id) => {
-        const field = $(id);
-        if (field && field.options[0] && field.options[0].value !== "") {
-          field.add(new Option("Select", ""), 0);
-          field.value = "";
-        }
-      });
+    function answered(id) {
+      return $(id).value === "Yes" || $(id).value === "No" || $(id).value === "Unsure";
     }
 
     function pronouns() {
@@ -901,21 +905,13 @@
       return { subject: "he", object: "him", possessive: "his", verb: "was" };
     }
 
-    function joinSentences(lines) {
-      return lines.filter(Boolean).join(" ");
-    }
-
-    function answerText(id) {
-      return answered(id) ? $(id).value : "Not answered";
-    }
-
     function buildAiPrompt(draftNote) {
       const participant = clean($("participantName").value) || "Participant";
       const worker = clean($("workerName").value) || "Support worker";
       const date = formatDate($("shiftDate").value) || "Date not entered";
       const promptLines = [
         "Please write a professional NDIS/support-worker progress note based on the information below.",
-        "Write it as one natural paragraph in simple clear language.",
+        "Write it as one natural flowing narrative paragraph in simple clear language.",
         "You may add reasonable professional wording, flow, and detail suggestions to make the note read naturally.",
         "Keep the wording objective, respectful, and suitable for a support note.",
         "",
@@ -926,29 +922,29 @@
         `Main location: ${clean($("location").value) || "Not entered"}`,
         `Pronoun: ${$("pronoun").selectedOptions[0].text}`,
         `Mood on arrival: ${clean($("arrivalMood").value) || "Not entered"}`,
-        `Morning tea: ${answerText("morningTea")}`,
+        `Morning tea: ${clean($("morningTea").value) || "Not answered"}`,
         `Morning tea details: ${clean($("morningTeaDetails").value) || "Not entered"}`,
-        `Interacted with peers: ${answerText("peers")}`,
-        `Interacted with staff: ${answerText("staff")}`,
+        `Interacted with peers: ${clean($("peers").value) || "Not answered"}`,
+        `Interacted with staff: ${clean($("staff").value) || "Not answered"}`,
         `Program/activity: ${clean($("program").value) || "Not entered"}`,
         `Program location: ${clean($("programLocation").value) || "Not entered"}`,
-        `Participated: ${answerText("participated")}`,
-        `Enjoyed activity: ${answerText("enjoyed")}`,
-        `Medication support: ${answerText("medication")}`,
+        `Participated: ${clean($("participated").value) || "Not answered"}`,
+        `Enjoyed activity: ${clean($("enjoyed").value) || "Not answered"}`,
+        `Medication support: ${clean($("medication").value) || "Not answered"}`,
         `Medication time: ${clean($("medTime").value) || "Not entered"}`,
         `Lunch: ${clean($("lunch").value) || "Not entered"}`,
         `Meal amount eaten: ${clean($("eaten").value) || "Not entered"}`,
         `Fluid intake: ${clean($("fluids").value) || "Not entered"}`,
-        `Toileted independently: ${answerText("toilet")}`,
-        `Staff assistance required: ${answerText("assist")}`,
-        `Incontinence: ${answerText("incontinent")}`,
-        `Pad change completed: ${answerText("pad")}`,
-        `Behaviours of concern: ${answerText("behaviour")}`,
+        `Toileted independently: ${clean($("toilet").value) || "Not answered"}`,
+        `Staff assistance required: ${clean($("assist").value) || "Not answered"}`,
+        `Incontinence: ${clean($("incontinent").value) || "Not answered"}`,
+        `Pad change completed: ${clean($("pad").value) || "Not answered"}`,
+        `Behaviours of concern: ${clean($("behaviour").value) || "Not answered"}`,
         `Behaviour details: ${clean($("behaviourDetail").value) || "Not entered"}`,
-        `Incident or injury: ${answerText("incident")}`,
+        `Incident or injury: ${clean($("incident").value) || "Not answered"}`,
         `Incident details: ${clean($("incidentDetail").value) || "Not entered"}`,
-        `Returned to centre: ${answerText("returnCentre")}`,
-        `Departed safely: ${answerText("departed")}`,
+        `Returned to centre: ${clean($("returnCentre").value) || "Not answered"}`,
+        `Departed safely: ${clean($("departed").value) || "Not answered"}`,
         `Achievements/highlights: ${clean($("achievement").value) || "Not entered"}`,
         `Additional comments: ${clean($("comments").value) || "Not entered"}`,
         `Handover/follow-up: ${clean($("handover").value) || "Not entered"}`,
@@ -968,99 +964,123 @@
 
     function generateNote() {
       const participant = clean($("participantName").value) || "Participant";
-      const worker = clean($("workerName").value) || "Support worker";
-      const date = formatDate($("shiftDate").value) || "Date not entered";
-      const time = clean($("shiftTime").value) || "Time not entered";
       const locationValue = clean($("location").value);
-      const location = locationValue && locationValue !== "N/A" ? locationValue : "the centre";
       const showLocation = locationValue && locationValue !== "N/A";
+      const location = showLocation ? locationValue : "the centre";
       const mood = lower($("arrivalMood").value) || "settled";
+      const p = pronouns();
+
       const program = clean($("program").value);
       const programLocation = clean($("programLocation").value);
       const morningTeaDetails = clean($("morningTeaDetails").value);
       const achievement = sentence($("achievement").value);
-      const comments = sentence($("comments").value);
-      const handover = sentence($("handover").value);
-      const customText = sentence($("customText").value);
       const lunch = clean($("lunch").value);
       const eaten = clean($("eaten").value);
       const fluids = clean($("fluids").value);
       const medTime = clean($("medTime").value);
       const behaviourDetail = sentence($("behaviourDetail").value);
       const incidentDetail = sentence($("incidentDetail").value);
-      const p = pronouns();
-      const morningTeaLine = yes("morningTea")
-        ? `${p.subject} had morning tea${morningTeaDetails ? " consisting of " + morningTeaDetails : ""}.`
-        : no("morningTea") ? `${p.subject} did not have morning tea.` : "";
-      const peerStaffLine = (() => {
-        if (yes("peers") && yes("staff")) return `${p.subject} interacted well with peers and staff members.`;
-        if (yes("peers")) return `${p.subject} interacted well with peers.`;
-        if (yes("staff")) return `${p.subject} interacted well with staff members.`;
-        if (no("peers") && no("staff")) return `${p.subject} had limited interaction with peers and staff members during the shift.`;
-        if (no("peers")) return `${p.subject} had limited interaction with peers during the shift.`;
-        if (no("staff")) return `${p.subject} had limited interaction with staff members during the shift.`;
-        return "";
-      })();
-      const programLine = program
-        ? `The program today was ${program}${programLocation ? " at " + programLocation : ""}.`
-        : "";
-      const participationLine = (() => {
-        if (!program) return "";
-        const lines = [];
-        if (yes("participated")) lines.push(`${p.subject} participated in the activity`);
-        if (no("participated")) lines.push(`${p.subject} did not actively participate in the activity`);
-        if (yes("enjoyed")) lines.push(`${p.subject} appeared to enjoy the activity`);
-        if (no("enjoyed")) lines.push(`${p.subject} did not appear to fully enjoy the activity today`);
-        return lines.length ? sentence(lines.join(", and ")) : "";
-      })();
-      const medicationLine = yes("medication")
-        ? `Medication support was provided as required${medTime ? " at " + medTime : ""}.`
-        : no("medication") ? "No medication support was required during the shift." : "";
-      const lunchLine = lunch
-        ? `${participant} had ${lunch} for lunch${eaten ? " and consumed " + eaten + " of the meal" : ""}.`
-        : "";
-      const fluidsLine = fluids ? `${participant} consumed ${fluids}.` : "";
-      const personalCareLines = [
-        yes("toilet") ? `${participant} toileted independently.` : no("toilet") ? `${participant} required support with toileting as needed.` : "",
-        yes("assist") ? "Staff provided personal care assistance as required." : no("assist") ? "No staff assistance with personal care was required." : "",
-        yes("incontinent") ? `${participant} experienced an episode of incontinence and staff provided appropriate support.` : no("incontinent") ? "No incontinence was reported." : "",
-        yes("pad") ? "A pad change was completed in accordance with care requirements." : no("pad") ? "No pad change was required." : ""
-      ];
-      const wellbeingLines = [
-        !answered("behaviour") ? "" : yes("behaviour")
-          ? `Behaviours of concern were observed${behaviourDetail ? " - " + behaviourDetail.slice(0, -1) : ""} and staff provided support, reassurance, and redirection where required.`
-          : "No behaviours of concern were observed.",
-        !answered("incident") ? "" : yes("incident")
-          ? `An incident or injury was recorded${incidentDetail ? " - " + incidentDetail.slice(0, -1) : ""} and managed according to organisational procedures.`
-          : "No incident or injury was observed or reported."
-      ];
-      const departureLine = (() => {
-        if (yes("returnCentre") && yes("departed")) return `${participant} returned to the centre and departed safely at the conclusion of the program.`;
-        if (yes("returnCentre")) return `${participant} returned to the centre following the activity.`;
-        if (yes("departed")) return `${participant} departed safely at the conclusion of the shift.`;
-        return "";
-      })();
-      const paragraph = joinSentences([
-        showLocation
-          ? `${participant} arrived at ${location}${time !== "Time not entered" ? " at " + time : ""}, ${p.subject} appeared ${mood} this morning.`
-          : `${participant} arrived${time !== "Time not entered" ? " at " + time : ""}, ${p.subject} appeared ${mood} this morning.`,
-        morningTeaLine,
-        peerStaffLine,
-        programLine,
-        participationLine,
-        achievement ? `Highlights of the day included ${achievement.charAt(0).toLowerCase() + achievement.slice(1)}` : "",
-        medicationLine,
-        lunchLine,
-        fluidsLine,
-        personalCareLines.filter(Boolean).join(" "),
-        wellbeingLines.filter(Boolean).join(" "),
-        departureLine,
-        comments,
-        handover,
-        customText
-      ]);
-      $("noteText").value = paragraph;
-      $("aiPrompt").value = buildAiPrompt(paragraph);
+      const comments = sentence($("comments").value);
+      const handover = sentence($("handover").value);
+      const customText = sentence($("customText").value);
+
+      // Build narrative sections
+      const sections = [];
+
+      // Opening
+      const openingParts = [`${participant} arrived at ${location} and appeared ${mood}`];
+      sections.push(openingParts.join(", ") + ".");
+
+      // Morning tea
+      if (yes("morningTea")) {
+        sections.push(`${p.subject} had morning tea${morningTeaDetails ? " consisting of " + morningTeaDetails : ""}.`);
+      } else if (no("morningTea")) {
+        sections.push(`${p.subject} did not have morning tea.`);
+      }
+
+      // Initial activity if provided
+      if (achievement) {
+        const achieveLower = achievement.charAt(0).toLowerCase() + achievement.slice(1);
+        sections.push(`${p.subject} spent time ${achieveLower}`);
+      }
+
+      // Program section
+      if (program) {
+        if (yes("returnCentre")) {
+          sections.push(`The group then departed for the day's program.`);
+        }
+        sections.push(`The group participated in ${program}${programLocation ? " and travelled to " + programLocation : ""}.`);
+      }
+
+      // Incident or injury during outing
+      if (yes("incident") && incidentDetail) {
+        sections.push(`During the outing, ${incidentDetail}`);
+      }
+
+      // Mood/behavior during activities
+      if (program) {
+        if (yes("enjoyed")) {
+          sections.push(`Throughout the outing, ${p.subject} remained calm and content.`);
+        } else if (no("enjoyed")) {
+          sections.push(`${p.subject} appeared less engaged during the outing.`);
+        }
+      }
+
+      // Medication
+      if (yes("medication")) {
+        sections.push(`${p.subject} was supported to take prescribed medication${medTime ? " at approximately " + medTime : ""}.`);
+      }
+
+      // Lunch
+      if (lunch) {
+        const eatenText = eaten ? ` and consumed ${eaten} of the meal` : "";
+        sections.push(`At ${medTime || "the appropriate time"}, ${p.subject} enjoyed lunch, which consisted of ${lunch}${eatenText}.`);
+      }
+
+      // Fluids
+      if (fluids) {
+        sections.push(`${p.subject} maintained ${fluids}.`);
+      }
+
+      // Return journey behavior
+      if (yes("behaviour") && behaviourDetail) {
+        sections.push(`During the return journey to the centre, ${behaviourDetail}`);
+      }
+
+      // Toileting and personal care
+      if (yes("toilet")) {
+        sections.push(`${p.subject} toileted independently.`);
+      } else if (no("toilet")) {
+        sections.push(`Upon returning to the centre, staff assisted ${p.subject} with toileting routine.`);
+      }
+
+      // Pad change
+      if (yes("pad")) {
+        sections.push(`Staff changed ${p.possessive} continence pad.`);
+      }
+
+      // Relaxation after
+      if (comments) {
+        sections.push(`${p.subject} then spent time relaxing. ${comments}`);
+      } else {
+        sections.push(`${p.subject} then spent time relaxing in the main area until it was time to return home.`);
+      }
+
+      // Closing summary
+      sections.push(`Overall, ${p.subject} appeared ${mood} and had a positive day with appropriate support provided throughout.`);
+
+      if (handover) {
+        sections.push(`${handover}`);
+      }
+
+      if (customText) {
+        sections.push(`${customText}`);
+      }
+
+      // Join all sections into one flowing paragraph
+      const fullNote = sections.join(" ");
+      $("noteText").value = fullNote;
+      $("aiPrompt").value = buildAiPrompt(fullNote);
       updateCount();
     }
 
@@ -1124,7 +1144,6 @@
     // Initialize
     document.addEventListener("DOMContentLoaded", () => {
       $("shiftDate").value = todayForInput();
-      prepareQuestionSelects();
       setupEventListeners();
       updateCount();
     });
