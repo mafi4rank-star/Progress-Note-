@@ -252,6 +252,78 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 43, 45, .55);
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-overlay.hidden {
+      display: none;
+    }
+    .modal {
+      background: var(--panel);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 620px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .modal-head h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .modal-head h3 svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--accent);
+      flex: 0 0 auto;
+    }
+    .modal-body {
+      padding: 14px 18px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-body p {
+      margin: 0 0 10px;
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .modal-body textarea {
+      min-height: 200px;
+      font-size: .88rem;
+      line-height: 1.5;
+    }
+    .modal-foot {
+      display: flex;
+      gap: 10px;
+      padding: 12px 18px 16px;
+      border-top: 1px solid var(--line);
+    }
+    .icon-btn.ai-btn {
+      background: linear-gradient(135deg, #1d5f63, #3a9ca2);
+      color: #fff;
+      border-color: transparent;
+    }
     @media (min-width: 860px) {
       .layout {
         grid-template-columns: minmax(0, 1.02fr) minmax(360px, .78fr);
@@ -373,6 +445,9 @@
         <div class="output-head">
           <h2>Generated note</h2>
           <div class="mini-actions">
+            <button class="icon-btn ai-btn" type="button" id="aiBtn" title="Get AI prompt">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5Z"></path><path d="M19 15l.75 2.25L22 18l-2.25.75L19 21l-.75-2.25L16 18l2.25-.75Z"></path></svg>
+            </button>
             <button class="icon-btn" type="button" id="copyBtn" title="Copy note">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
             </button>
@@ -397,6 +472,34 @@
       </button>
     </div>
   </main>
+
+  <div class="modal-overlay hidden" id="aiModal" role="dialog" aria-modal="true" aria-labelledby="aiModalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="aiModalTitle">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5Z"></path>
+            <path d="M19 15l.75 2.25L22 18l-2.25.75L19 21l-.75-2.25L16 18l2.25-.75Z"></path>
+          </svg>
+          AI Prompt
+        </h3>
+        <button class="icon-btn" type="button" id="aiModalClose" title="Close" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Copy this prompt and paste it into ChatGPT, Claude, or another AI assistant to get a polished, professional version of the note.</p>
+        <textarea id="aiPromptText" readonly></textarea>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-primary" type="button" id="copyPromptBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy prompt
+        </button>
+        <button class="btn btn-secondary" type="button" id="aiModalClose2">Close</button>
+      </div>
+    </div>
+  </div>
 
   <div class="toast" id="toast">Copied</div>
 
@@ -433,6 +536,13 @@
 
     function no(id) {
       return $(id).value === "No";
+    }
+
+    function showToast(message) {
+      const toast = $("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2000);
     }
 
     function pronouns() {
@@ -598,13 +708,43 @@
       $("copyBtn").addEventListener("click", () => {
         $("noteText").select();
         document.execCommand("copy");
-        const toast = $("toast");
-        toast.classList.add("show");
-        setTimeout(() => toast.classList.remove("show"), 2000);
+        showToast("Copied");
       });
 
       $("printBtn").addEventListener("click", () => {
         window.print();
+      });
+
+      function buildAiPrompt() {
+        const note = $("noteText").value.trim();
+        if (!note) return "";
+        return `You are an experienced disability support worker supervisor. Please improve and professionally polish the following progress note. Keep all the facts exactly as stated, fix any grammar or wording, and make the tone warm, clear, and person-centred. Return only the improved note text, without any explanation.\n\nProgress note:\n${note}`;
+      }
+
+      $("aiBtn").addEventListener("click", () => {
+        const prompt = buildAiPrompt();
+        if (!prompt) {
+          showToast("Generate a note first");
+          return;
+        }
+        $("aiPromptText").value = prompt;
+        $("aiModal").classList.remove("hidden");
+      });
+
+      function closeAiModal() {
+        $("aiModal").classList.add("hidden");
+      }
+
+      $("aiModalClose").addEventListener("click", closeAiModal);
+      $("aiModalClose2").addEventListener("click", closeAiModal);
+      $("aiModal").addEventListener("click", (e) => {
+        if (e.target === $("aiModal")) closeAiModal();
+      });
+
+      $("copyPromptBtn").addEventListener("click", () => {
+        $("aiPromptText").select();
+        document.execCommand("copy");
+        showToast("Prompt copied");
       });
 
       $("behaviour").addEventListener("change", () => {
