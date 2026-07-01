@@ -705,20 +705,33 @@
         }
       });
 
+      function copyText(text, message) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => showToast(message)).catch(() => {
+            document.execCommand("copy");
+            showToast(message);
+          });
+        } else {
+          document.execCommand("copy");
+          showToast(message);
+        }
+      }
+
       $("copyBtn").addEventListener("click", () => {
         $("noteText").select();
-        document.execCommand("copy");
-        showToast("Copied");
+        copyText($("noteText").value, "Copied");
       });
 
       $("printBtn").addEventListener("click", () => {
         window.print();
       });
 
+      const AI_PROMPT_TEMPLATE = "You are an experienced disability support worker supervisor. Please improve and professionally polish the following progress note. Keep all the facts exactly as stated, fix any grammar or wording, and make the tone warm, clear, and person-centred. Return only the improved note text, without any explanation.\n\nProgress note:\n";
+
       function buildAiPrompt() {
         const note = $("noteText").value.trim();
         if (!note) return "";
-        return `You are an experienced disability support worker supervisor. Please improve and professionally polish the following progress note. Keep all the facts exactly as stated, fix any grammar or wording, and make the tone warm, clear, and person-centred. Return only the improved note text, without any explanation.\n\nProgress note:\n${note}`;
+        return AI_PROMPT_TEMPLATE + note;
       }
 
       $("aiBtn").addEventListener("click", () => {
@@ -743,8 +756,7 @@
 
       $("copyPromptBtn").addEventListener("click", () => {
         $("aiPromptText").select();
-        document.execCommand("copy");
-        showToast("Prompt copied");
+        copyText($("aiPromptText").value, "Prompt copied");
       });
 
       $("behaviour").addEventListener("change", () => {
